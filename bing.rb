@@ -10,7 +10,7 @@ class CustomBing
   attr_reader :image_url
 
   def initialize(bird_data)
-    @key = BING_KEY
+    @key = ENV["BING_KEY"]
     @client = bing_image = Bing.new(@key, 1, 'Image')
     set_bird(bird_data)
   end
