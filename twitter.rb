@@ -2,22 +2,16 @@ require 'twitter'
 require 'tempfile'
 require 'mini_magick'
 
-
 require_relative 'birdread'
 require_relative 'bing'
 require_relative 'keys'
 
 
-# def configure_twitter_client
-#   client = Twitter::REST::Client.new do |config|
-#     config.consumer_key = ENV["TWITTER_KEY"]
-#     config.consumer_secret = ENV["TWITTER_SECRET"]
-#     config.access_token = ENV["ACCESS_TOKEN"]
-#     config.access_token_secret = ENV["ACCESS_SECRET"]
-#   end
-#   client
-# end
-
+TWITTER_KEY = TWITTER_KEY || ENV["TWITTER_KEY"]
+TWITTER_SECRET = TWITTER_SECRET || ENV["TWITTER_SECRET"]
+ACCESS_TOKEN = ACCESS_TOKEN || ENV["ACCESS_TOKEN"]
+ACCESS_SECRET = ACCESS_SECRET || ENV["ACCESS_SECRET"]
+BING_KEY = BING_KEY || ENV["BING_KEY"]
 
 class EveryBirdTwitter
 
@@ -61,27 +55,31 @@ class EveryBirdTwitter
 
 end
 
+def tweet
+  tweety = EveryBirdTwitter.new
+  num = tweety.last_bird + 1
 
-tweety = EveryBirdTwitter.new
-num = tweety.last_bird + 1
-puts "NUM SHOULD BE #{num}"
-# num = 6
+  bird = get_specific_bird(num)
+  bing = CustomBing.new(bird)
+  bing.search_and_parse_bird
 
-bird = get_specific_bird(num)
-bing = CustomBing.new(bird)
-bing.search_and_parse_bird
-
-bird_string = "BIRD \##{num}\n" +
-              "#{bird[0]}\n(#{bird[1]})\n"
+  bird_string = "BIRD \##{num}\n" +
+                "#{bird[0]}\n(#{bird[1]})\n"
 
 
-image = MiniMagick::Image.open(bing.image_url)
-image.resize "800x800"
-p image.size
-p image.dimensions
-file = image.write("./tmp/tweety_bird.jpg")
+  image = MiniMagick::Image.open(bing.image_url)
+  image.resize "800x800"
+  file = image.write("./tmp/tweety_bird.jpg")
 
-File.open("./tmp/tweety_bird.jpg") do |f|
-  tweety.update(bird_string, f)
+  File.open("./tmp/tweety_bird.jpg") do |f|
+    tweety.update(bird_string, f)
+  end
 end
 
+def should_tweet?
+  Time.now.hour % 8 == 0
+end
+
+def rake_tweet
+  tweet if should_tweet?
+end
