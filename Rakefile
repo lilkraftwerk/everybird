@@ -1,6 +1,6 @@
 $LOAD_PATH << "."
 
-require 'twitter'
+require 'everybird'
 
 task :timed_tweet do
   rake_tweet
