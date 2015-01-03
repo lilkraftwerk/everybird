@@ -77,7 +77,9 @@ def tweet
 end
 
 def should_tweet?
-  Time.now.hour % 4 == 0
+  should = Time.now.hour % 4 == 0
+  puts should
+  return should
 end
 
 def timed_tweet
