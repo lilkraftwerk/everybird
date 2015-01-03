@@ -4,7 +4,6 @@
 require 'searchbing'
 require 'open-uri'
 require_relative 'birdread'
-# require_relative 'keys'
 
 class CustomBing
   attr_reader :image_url

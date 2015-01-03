@@ -77,7 +77,7 @@ def tweet
 end
 
 def should_tweet?
-  Time.now.hour % 8 == 0
+  Time.now.hour % 4 == 0
 end
 
 def rake_tweet
