@@ -3,7 +3,7 @@ $LOAD_PATH << "."
 require 'everybird'
 
 task :timed_tweet do
-  rake_tweet
+  timed_tweet
 end
 
 task :tweet do

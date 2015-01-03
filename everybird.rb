@@ -80,6 +80,6 @@ def should_tweet?
   Time.now.hour % 4 == 0
 end
 
-def rake_tweet
+def timed_tweet
   tweet if should_tweet?
 end
