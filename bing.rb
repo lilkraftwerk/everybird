@@ -1,6 +1,3 @@
-# list of birds:
-# http://ces.iisc.ernet.in/hpg/envis/sibleydoc63.html
-
 require 'searchbing'
 require 'open-uri'
 require_relative 'birdread'

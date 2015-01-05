@@ -4,7 +4,6 @@ require 'mini_magick'
 
 require_relative 'birdread'
 require_relative 'bing'
-# require_relative 'keys'
 
 
 TWITTER_KEY ||= ENV["TWITTER_KEY"]
@@ -17,7 +16,6 @@ class EveryBirdTwitter
 
   def initialize
     configure_twitter_client
-    p @client
     get_last_bird_number
   end
 
@@ -39,8 +37,6 @@ class EveryBirdTwitter
     regexp = /BIRD\s#(\d+)\s/
     me = @client.user.id
     timeline = @client.user_timeline(me)
-    p me
-    p timeline
     if timeline.empty?
       @last_bird_num = 0
     else
