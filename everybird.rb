@@ -74,25 +74,25 @@ def tweet
       tweety.update(bird_string, f)
     end
   end
+end
 
-  def tweet_specific_number(number)
-    number = number + 1
-    tweety = EveryBirdTwitter.new
-    bird = get_specific_bird(number)
-    bing = CustomBing.new(bird)
-    bing.search_and_parse_bird
+def tweet_specific_number(number)
+  number = number + 1
+  tweety = EveryBirdTwitter.new
+  bird = get_specific_bird(number)
+  bing = CustomBing.new(bird)
+  bing.search_and_parse_bird
 
-    bird_string = "BIRD \##{number}\n" +
-                  "#{bird[0]}\n(#{bird[1]})\n"
+  bird_string = "BIRD \##{number}\n" +
+                "#{bird[0]}\n(#{bird[1]})\n"
 
 
-    image = MiniMagick::Image.open(bing.image_url)
-    image.resize "800x800"
-    file = image.write("./tmp/tweety_bird.jpg")
+  image = MiniMagick::Image.open(bing.image_url)
+  image.resize "800x800"
+  file = image.write("./tmp/tweety_bird.jpg")
 
-    File.open("./tmp/tweety_bird.jpg") do |f|
-      tweety.update(bird_string, f)
-    end
+  File.open("./tmp/tweety_bird.jpg") do |f|
+    tweety.update(bird_string, f)
   end
 end
 
