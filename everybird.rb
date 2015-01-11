@@ -16,7 +16,6 @@ class EveryBirdTwitter
 
   def initialize
     configure_twitter_client
-    get_last_bird_number
   end
 
   def last_bird
@@ -56,6 +55,7 @@ end
 
 def tweet
   tweety = EveryBirdTwitter.new
+  tweety.get_last_bird_number
   num = tweety.last_bird + 1
   unless num > 9701
     bird = get_specific_bird(num)
@@ -107,7 +107,7 @@ end
 
 def message_about_shuffle
   tweety = EveryBirdTwitter.new
-  message = "[ everybird note ]\n due to feedback (and an overabundance of tinamous) the next 9,653 birds will randomized. thank you. \n @nah_solo"
+  message = "[ everybird note ]\ndue to feedback (and an overabundance of tinamous) the next 9,653 birds will be randomized. thank you. \n-@nah_solo"
   tweety.message(message)
 end
 
