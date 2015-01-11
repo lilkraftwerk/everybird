@@ -112,6 +112,5 @@ def message_about_shuffle
 end
 
 def tweet_number_fortynine
-  tweety = EveryBirdTwitter.new
-  tweety.tweet_specific_number(49)
+  tweet_specific_number(49)
 end
