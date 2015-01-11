@@ -10,10 +10,10 @@ task :tweet do
   tweet
 end
 
-task :announce_shuffle do
+task :shuffle do
   message_about_shuffle
 end
 
-task :tweet_fortynine do
+task :fortynine do
   tweet_number_fortynine
 end

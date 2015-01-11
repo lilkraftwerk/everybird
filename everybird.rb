@@ -93,6 +93,7 @@ def tweet
     File.open("./tmp/tweety_bird.jpg") do |f|
       tweety.update(bird_string, f)
     end
+  end
 end
 
 def should_tweet?
