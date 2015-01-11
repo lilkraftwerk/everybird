@@ -49,35 +49,66 @@ class EveryBirdTwitter
     @client.update_with_media(text,file)
   end
 
+  def message(text)
+    @client.update(text)
+  end
 end
 
 def tweet
   tweety = EveryBirdTwitter.new
   num = tweety.last_bird + 1
+  unless num > 9701
+    bird = get_specific_bird(num)
+    bing = CustomBing.new(bird)
+    bing.search_and_parse_bird
 
-  bird = get_specific_bird(num)
-  bing = CustomBing.new(bird)
-  bing.search_and_parse_bird
-
-  bird_string = "BIRD \##{num}\n" +
-                "#{bird[0]}\n(#{bird[1]})\n"
+    bird_string = "BIRD \##{num}\n" +
+                  "#{bird[0]}\n(#{bird[1]})\n"
 
 
-  image = MiniMagick::Image.open(bing.image_url)
-  image.resize "800x800"
-  file = image.write("./tmp/tweety_bird.jpg")
+    image = MiniMagick::Image.open(bing.image_url)
+    image.resize "800x800"
+    file = image.write("./tmp/tweety_bird.jpg")
 
-  File.open("./tmp/tweety_bird.jpg") do |f|
-    tweety.update(bird_string, f)
+    File.open("./tmp/tweety_bird.jpg") do |f|
+      tweety.update(bird_string, f)
+    end
   end
+
+  def tweet_specific_number(number)
+    tweety = EveryBirdTwitter.new
+    bird = get_specific_bird(number)
+    bing = CustomBing.new(bird)
+    bing.search_and_parse_bird
+
+    bird_string = "BIRD \##{num}\n" +
+                  "#{bird[0]}\n(#{bird[1]})\n"
+
+
+    image = MiniMagick::Image.open(bing.image_url)
+    image.resize "800x800"
+    file = image.write("./tmp/tweety_bird.jpg")
+
+    File.open("./tmp/tweety_bird.jpg") do |f|
+      tweety.update(bird_string, f)
+    end
 end
 
 def should_tweet?
   should = Time.now.hour % 4 == 0
-  puts should
   return should
 end
 
 def timed_tweet
   tweet if should_tweet?
+end
+
+def message_about_shuffle
+  tweety = EveryBirdTwitter.new
+  message = "[ everybird note ]\n due to feedback (and an overabundance of tinamous) the next 9,653 birds will randomized. thank you. \n @nah_solo"
+  tweety.message(message)
+end
+
+def tweet_number_fortynine
+  tweet_specific_number(49)
 end
