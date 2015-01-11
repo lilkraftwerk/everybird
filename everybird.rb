@@ -76,12 +76,13 @@ def tweet
   end
 
   def tweet_specific_number(number)
+    number = number + 1
     tweety = EveryBirdTwitter.new
     bird = get_specific_bird(number)
     bing = CustomBing.new(bird)
     bing.search_and_parse_bird
 
-    bird_string = "BIRD \##{num}\n" +
+    bird_string = "BIRD \##{number}\n" +
                   "#{bird[0]}\n(#{bird[1]})\n"
 
 
@@ -110,5 +111,6 @@ def message_about_shuffle
 end
 
 def tweet_number_fortynine
-  tweet_specific_number(49)
+  tweety = EveryBirdTwitter.new
+  tweety.tweet_specific_number(49)
 end
