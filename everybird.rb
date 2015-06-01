@@ -24,7 +24,7 @@ def tweet
     bing = CustomBing.new(bird_array)
 
     bird_string = "BIRD \##{number_of_bird_to_tweet}\n" +
-                  "#{bird_array[1]}\n(#{bird_array[0]})\n"
+                  "#{bird_array[0]}\n(#{bird_array[1]})\n"
 
     puts bird_string
 
