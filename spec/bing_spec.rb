@@ -19,11 +19,17 @@ describe CustomBing do
     expect(@bing.name).to eq("Black Honeyeater")
   end
 
-  it 'should get search results for the bird' do
+  it 'should get a hash back as results for the bird' do
     VCR.use_cassette('bing') do
       @bing.get_list_of_birds
-      @bing.set_image_attributes(1)
-      expect(@bing.parsed).to be_type_of(hash)
+      expect(@bing.parsed).to be_a(Hash)
+    end
+  end
+
+  it 'should get an array back as results for the image section of the hash' do
+    VCR.use_cassette('bing') do
+      @bing.get_list_of_birds
+      expect(@bing.parsed[:Image]).to be_an(Array)
     end
   end
 
@@ -31,7 +37,7 @@ describe CustomBing do
     VCR.use_cassette('bing') do
       @bing.get_list_of_birds
       @bing.set_image_attributes(1)
-      expect(@bing.image_url).to eq('')
+      expect(@bing.image_url).to match(/(https?:\/\/.*\.(?:png|jpg|gif))/)
     end
   end
 end
