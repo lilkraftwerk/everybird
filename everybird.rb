@@ -13,7 +13,6 @@ ACCESS_SECRET ||= ENV["ACCESS_SECRET"]
 BING_KEY ||= ENV["BING_KEY"]
 
 class EveryBirdTwitter
-
   def initialize
     configure_twitter_client
   end
