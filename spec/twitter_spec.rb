@@ -1,5 +1,5 @@
 require_relative './spec_helper'
-require_relative '../twitter'
+require_relative '../custom_twitter'
 
 describe EveryBirdTwitter do
   before(:each) do

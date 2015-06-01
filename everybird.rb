@@ -4,7 +4,7 @@ require 'mini_magick'
 
 require_relative 'birdread'
 require_relative 'bing'
-require_relative 'twitter'
+require_relative 'custom_twitter'
 
 TWITTER_KEY ||= ENV["TWITTER_KEY"]
 TWITTER_SECRET ||= ENV["TWITTER_SECRET"]
@@ -16,7 +16,7 @@ def tweet
   bird_reader = BirdRead.new
   tweeter = EveryBirdTwitter.new
 
-  tweeter.set_last_bird_number
+  tweeter.set_last_bird
   number_of_bird_to_tweet = tweeter.last_bird + 1
 
   unless number_of_bird_to_tweet > 9701
@@ -24,12 +24,16 @@ def tweet
     bing = CustomBing.new(bird_array)
 
     bird_string = "BIRD \##{number_of_bird_to_tweet}\n" +
-                  "#{bird[1]}\n(#{bird[0]})\n"
-    puts "ahead of until loop"
+                  "#{bird_array[1]}\n(#{bird_array[0]})\n"
 
+    puts bird_string
+
+    puts "ahead of until loop"
     image_number = 0
 
-    until @tweeter.set_last_bird_number == number_of_bird_to_tweet
+    bing.get_list_of_birds
+
+    until tweeter.get_last_bird_number == number_of_bird_to_tweet
       puts "in until loop"
       bing.set_image_attributes(image_number)
 
@@ -38,7 +42,7 @@ def tweet
       file = image.write("./tmp/tweety_bird.jpg")
 
       File.open("./tmp/tweety_bird.jpg") do |f|
-        tweety.update(bird_string, f)
+        tweeter.update(bird_string, f)
       end
 
       sleep 30

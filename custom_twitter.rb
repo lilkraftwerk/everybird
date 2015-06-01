@@ -1,5 +1,7 @@
 require 'twitter'
 
+require_relative 'keys'
+
 class EveryBirdTwitter
   attr_reader :last_bird
 
