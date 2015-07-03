@@ -18,7 +18,7 @@ class EveryBirdTwitter
   end
 
   def get_last_bird_number
-    regexp = /BIRD\s#(\d+)\s/
+    regexp = /BIRD\s#(.+)\s/
     me = @client.user.id
     timeline = @client.user_timeline(me)
     @most_recent_tweet = @client.user_timeline(me).first

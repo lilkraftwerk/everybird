@@ -23,7 +23,15 @@ def tweet
     bird_array = bird_reader.get_specific_bird(number_of_bird_to_tweet)
     bing = CustomBing.new(bird_array)
 
-    bird_string = "BIRD \##{number_of_bird_to_tweet}\n" +
+    if number_of_bird_to_tweet.to_s.length > 3
+      formatted_bird_number = number_of_bird_to_tweet.to_s.split('')
+      formatted_bird_number.insert(1, ",")
+      formatted_bird_number = formatted_bird_number.join('')
+    else
+      formatted_bird_number = number_of_bird_to_tweet
+    end
+
+    bird_string = "BIRD \##{formatted_bird_number}\n" +
                   "#{bird_array[0]}\n(#{bird_array[1]})\n"
 
     puts bird_string
@@ -49,8 +57,7 @@ def tweet
 end
 
 def should_tweet?
-  should = Time.now.hour % 4 == 0
-  return should
+  Time.now.hour % 4 == 0
 end
 
 def timed_tweet
