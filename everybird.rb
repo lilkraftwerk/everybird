@@ -1,7 +1,6 @@
 require 'twitter'
 require 'tempfile'
 require 'mini_magick'
-require 'keys'
 
 require_relative 'birdread'
 require_relative 'bing'
