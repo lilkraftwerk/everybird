@@ -1,6 +1,7 @@
 require 'twitter'
 require 'tempfile'
 require 'mini_magick'
+require 'keys'
 
 require_relative 'birdread'
 require_relative 'bing'
@@ -35,6 +36,7 @@ def tweet
                   "#{bird_array[0]}\n(#{bird_array[1]})\n"
 
     puts bird_string
+    puts "bird string above"
     image_number = rand(10) + 1
 
     bing.get_list_of_birds

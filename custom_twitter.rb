@@ -23,7 +23,10 @@ class EveryBirdTwitter
     timeline = @client.user_timeline(me)
     @most_recent_tweet = @client.user_timeline(me).first
     match = regexp.match(@most_recent_tweet.text).captures.first
-    match.gsub!(',', '').to_i
+    p match
+    match.gsub!(',','') if match.to_s.length > 3
+    p match
+    return match.to_i
   end
 
   def set_last_bird
