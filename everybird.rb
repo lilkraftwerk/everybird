@@ -36,7 +36,7 @@ def tweet
 
     puts bird_string
     puts "bird string above"
-    image_number = rand(10) + 1
+    image_number = rand(5) + 1
 
     bing.get_list_of_birds
 
