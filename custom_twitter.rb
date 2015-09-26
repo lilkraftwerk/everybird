@@ -1,5 +1,4 @@
 require 'twitter'
-require 'pry'
 require 'active_support'
 require 'active_support/time'
 

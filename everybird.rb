@@ -5,7 +5,6 @@ require 'mini_magick'
 require_relative 'birdread'
 require_relative 'bing'
 require_relative 'custom_twitter'
-require_relative 'keys'
 
 TWITTER_KEY ||= ENV["TWITTER_KEY"]
 TWITTER_SECRET ||= ENV["TWITTER_SECRET"]
