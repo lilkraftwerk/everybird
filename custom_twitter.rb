@@ -1,6 +1,7 @@
 require 'twitter'
 require 'active_support'
 require 'active_support/time'
+require 'pry'
 
 class EveryBirdTwitter
   attr_reader :last_bird
@@ -20,13 +21,8 @@ class EveryBirdTwitter
 
   def is_last_tweet_older_than_four_hours
     last = @client.user_timeline.first.created_at
-    if last <= 4.hours.ago
-      puts "last tweet was older than four hours ago"
-      return true
-    else
-      puts "last tweet was more recent than four hours ago"
-      return false
-    end
+    puts "last tweet #{time_ago_in_words(last)}"
+    last <= 4.hours.ago
   end
 
   def get_last_bird_number

@@ -1,10 +1,14 @@
 require 'twitter'
 require 'tempfile'
 require 'mini_magick'
+require 'action_view'
+include ActionView::Helpers::DateHelper
 
 require_relative 'birdread'
 require_relative 'bing'
 require_relative 'custom_twitter'
+require_relative 'keys'
+
 
 TWITTER_KEY ||= ENV["TWITTER_KEY"]
 TWITTER_SECRET ||= ENV["TWITTER_SECRET"]
