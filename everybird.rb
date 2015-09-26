@@ -5,6 +5,7 @@ require 'mini_magick'
 require_relative 'birdread'
 require_relative 'bing'
 require_relative 'custom_twitter'
+require_relative 'keys'
 
 TWITTER_KEY ||= ENV["TWITTER_KEY"]
 TWITTER_SECRET ||= ENV["TWITTER_SECRET"]
@@ -58,9 +59,15 @@ def tweet
 end
 
 def should_tweet?
-  Time.now.hour % 4 == 0
+  last_tweet_older_than_four_hours?
 end
 
 def timed_tweet
   tweet if should_tweet?
 end
+
+def last_tweet_older_than_four_hours?
+  client = EveryBirdTwitter.new
+  client.is_last_tweet_older_than_four_hours
+end
+
