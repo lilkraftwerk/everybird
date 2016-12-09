@@ -44,7 +44,7 @@ def tweet
     puts "bird string above"
 
     downloader = BirdDownloader.new
-    results = bownloader.get_bird(bird_name)
+    results = downloader.get_bird(bird_name)
     img_info = results["value"].map { |imgdata| [imgdata["contentUrl"], imgdata["encodingFormat"]] }
 
     i = 0
