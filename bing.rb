@@ -2,6 +2,8 @@ require 'httparty'
 require 'json'
 require 'net/http'
 
+BING_KEY ||= ENV["BING_KEY_2"]
+
 class BirdDownloader
   def initialize
     @BASE_URL = "https://api.cognitive.microsoft.com/bing/v5.0/images/search"
