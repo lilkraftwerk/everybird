@@ -45,7 +45,7 @@ def tweet
 
     downloader = BirdDownloader.new
     results = bownloader.get_bird(bird_name)
-    img_info = results["value"].map do { |imgdata| [imgdata["contentUrl"], imgdata["encodingFormat"]] }
+    img_info = results["value"].map { |imgdata| [imgdata["contentUrl"], imgdata["encodingFormat"]] }
 
     i = 0
     begin
