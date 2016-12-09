@@ -1,38 +1,24 @@
-require 'searchbing'
-require 'open-uri'
-require_relative 'birdread'
+require 'httparty'
+require 'pry'
+require 'json'
+require 'net/http'
 
-class CustomBing
-  attr_reader :image_url, :latin_name, :name, :parsed
-
-  def initialize(bird_data)
-    @key = BING_KEY
-    @client = bing_image = Bing.new(@key, 25, 'Image')
-    set_bird(bird_data)
+class BirdDownloader
+  def initialize
+    @BASE_URL = "https://api.cognitive.microsoft.com/bing/v5.0/images/search"
+    @headers = { "Ocp-Apim-Subscription-Key" => BING_KEY_2 }
+    @options = {
+      "mkt" => 'en-US',
+      "count" => 20
+    }
   end
 
-  def set_bird(bird_data)
-    @latin_name = bird_data[1]
-    @name = bird_data[0]
-  end
-
-  def get_list_of_birds
-    @parsed = @client.search(@name).first
-  end
-
-  def set_image_attributes(number)
-    @image_url = @parsed[:Image][number][:MediaUrl]
-    @extension = @image_url[-3..-1]
-  end
-
-  def download_bird(number)
-    set_image_attributes(number)
-    filename = @name.gsub(' ', '').downcase
-    open("img/#{filename}.#{@extension}", 'wb') do |file|
-      file << open(@image_url).read
-    end
+  def get_bird(name)
+    @options["q"] = "#{name} bird"
+    response = HTTParty.get("https://api.cognitive.microsoft.com/bing/v5.0/images/search",
+      :query => @options,
+      :headers => @headers
+    )
+    return response
   end
 end
-
-
-
