@@ -61,7 +61,7 @@ def tweet
       end
 
       File.open("./tmp/tweety_bird.jpg") do |f|
-        tweeter.update(, f)
+        tweeter.update(bird_string, f)
       end
 
     rescue Twitter::Error::Forbidden
