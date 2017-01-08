@@ -1,5 +1,6 @@
 require 'twitter'
 require 'tempfile'
+require 'open-uri'
 require 'mini_magick'
 require 'action_view'
 require 'net/http'
@@ -52,15 +53,18 @@ def tweet
       puts "trying result #{i}..."
       this_bird = img_info[i]
       url = this_bird[0]
+      filetype = url[-3..-1]
       tweeter = EveryBirdTwitter.new
+      filename = "./tmp/tweety_bird.#{filetype}"
 
-      File.open("./tmp/tweety_bird.jpg", "w") do |file|
-        response = HTTParty.get(url, stream_body: true) do |fragment|
-          file.write(fragment)
+      File.open(filename, "wb") do |saved_file|
+        # the following "open" is provided by open-uri
+        open(url, "rb") do |read_file|
+          saved_file.write(read_file.read)
         end
       end
 
-      File.open("./tmp/tweety_bird.jpg") do |f|
+      File.open(filename) do |f|
         tweeter.update(bird_string, f)
       end
 
