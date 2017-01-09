@@ -24,6 +24,18 @@ class EveryBirdTwitter
     last <= 4.hours.ago
   end
 
+   def is_last_tweet_older_than_five_hours
+    last = @client.user_timeline.first.created_at
+    puts "last tweet was #{time_ago_in_words(last)} ago, so should we tweet? #{last <= 5.hours.ago}"
+    last <= 5.hours.ago
+  end
+
+  def is_last_tweet_older_than_six_hours
+    last = @client.user_timeline.first.created_at
+    puts "last tweet was #{time_ago_in_words(last)} ago, so should we tweet? #{last <= 6.hours.ago}"
+    last <= 6.hours.ago
+  end
+
   def get_last_bird_number
     regexp = /BIRD\s#(.+)\s/
     me = @client.user.id

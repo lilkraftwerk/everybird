@@ -48,7 +48,7 @@ def tweet
     results = downloader.get_bird(bird_name)
     img_info = results["value"].map { |imgdata| [imgdata["contentUrl"], imgdata["encodingFormat"]] }
 
-    i = 0
+    i = get_start_index
     begin
       puts "trying result #{i}..."
       this_bird = img_info[i]
@@ -58,7 +58,6 @@ def tweet
       filename = "./tmp/tweety_bird.#{filetype}"
 
       File.open(filename, "wb") do |saved_file|
-        # the following "open" is provided by open-uri
         open(url, "rb") do |read_file|
           saved_file.write(read_file.read)
         end
@@ -76,6 +75,16 @@ def tweet
   end
 end
 
+def get_start_index
+  if last_tweet_older_than_six_hours?
+    return rand(2..6)
+  elsif last_tweet_older_than_five_hours?
+    return 1
+  else
+    return 0
+  end
+end
+
 def should_tweet?
   last_tweet_older_than_four_hours?
 end
@@ -87,4 +96,14 @@ end
 def last_tweet_older_than_four_hours?
   client = EveryBirdTwitter.new
   client.is_last_tweet_older_than_four_hours
+end
+
+def last_tweet_older_than_five_hours?
+  client = EveryBirdTwitter.new
+  client.is_last_tweet_older_than_five_hours
+end
+
+def last_tweet_older_than_six_hours?
+  client = EveryBirdTwitter.new
+  client.is_last_tweet_older_than_six_hours
 end
