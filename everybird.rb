@@ -46,6 +46,12 @@ def tweet
 
     downloader = BirdDownloader.new
     results = downloader.get_bird(bird_name)
+    if results["value"].nil?
+      puts "oops something broke."
+      puts results
+      return
+    end
+    
     img_info = results["value"].map { |imgdata| [imgdata["contentUrl"], imgdata["encodingFormat"]] }
 
     i = get_start_index
