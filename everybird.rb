@@ -52,6 +52,12 @@ def tweet
       return
     end
     
+    puts "*" * 10
+    puts "RESULTS"
+    puts "*" * 10
+    puts results
+    puts "*" * 10
+
     img_info = results["value"].map { |imgdata| [imgdata["contentUrl"], imgdata["encodingFormat"]] }
 
     i = get_start_index
