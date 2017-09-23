@@ -13,11 +13,15 @@ class BirdDownloader
   end
 
   def get_bird(name)
-    @options["q"] = "#{name} bird"
+    puts "bird name: #{name}"
+    @options["q"] = "#{name} bird".gsub("-", " ");
+    puts "options for query: #{@options}"
     response = HTTParty.get("https://api.cognitive.microsoft.com/bing/v5.0/images/search",
       :query => @options,
       :headers => @headers
     )
+    puts "response: "
+    puts response
     return response
   end
 end
