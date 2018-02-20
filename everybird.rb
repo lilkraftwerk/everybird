@@ -89,7 +89,7 @@ end
 
 def get_start_index
   if last_tweet_older_than_six_hours?
-    return rand(2..6)
+    return rand(2..12)
   elsif last_tweet_older_than_five_hours?
     return 1
   else
