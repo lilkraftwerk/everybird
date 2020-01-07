@@ -17,3 +17,7 @@ end
 task :reruntest do
 	rerun_test
 end
+
+task :lastbirds do
+	get_last_birds
+end

@@ -23,7 +23,7 @@ class EveryBirdTwitter
   end
 
   def get_all_last_birds
-    regexp = /BIRD\s#(.+)\s/
+    regexp = /Everybird\s\#(.+):\s/
     me = @client.user.id
     timeline = @client.user_timeline(me)
     recent_tweets = @client.user_timeline(me, { count: 200 })
@@ -31,31 +31,37 @@ class EveryBirdTwitter
       !regexp.match(tweet.text).nil?
     end
 
-    matches = with_match.map do |tweet|
-      regexp.match(tweet.text).captures
+    with_match.map do |tweet|
+      regexp.match(tweet.text).captures[0]
     end
-    return matches
   end
 
-  def birds
-    puts @posted_birds
+  def bird_without_recent_ones
+    recents = get_all_last_birds
+    @posted_birds.filter do |bird|
+      !recents.include?(bird["number"])
+    end
   end
 
   def random_bird
     @posted_birds.sample
   end
 
+  def random_filtered_bird
+    bird_without_recent_ones.sample
+  end
+
   def get_bird_link(id)
-    puts id
     "https://twitter.com/_everybird_/status/" + id
   end
 
   def get_text_to_post
-    bird = random_bird
-    name = bird['name']
+    bird = random_filtered_bird
+    number = bird['number']
+    name = bird['name'].strip
     link = get_bird_link(bird['id'])
     date = DateTime.parse(bird['created_at']).strftime("%A, %d %B, %Y")
-    [name, ", originally posted on " + date, link].join(" ")
+    "Everybird \##{number}: #{name}, originally posted on #{date} #{link}"
   end
 
   def update(text)
