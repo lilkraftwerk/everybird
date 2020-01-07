@@ -24,9 +24,7 @@ def should_tweet?
 end
 
 def rerun
-  if last_tweet_older_than_four_hours?
-    return
-  else
+  if should_tweet?
     tweeter = EveryBirdTwitter.new
     text = tweeter.get_text_to_post
     tweeter.update(text)
