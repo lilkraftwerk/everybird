@@ -1,3 +1,6 @@
+require 'action_view'
+require 'action_view/helpers'
+include ActionView::Helpers::DateHelper
 
 class EveryBirdTwitter
   attr_reader :last_bird
@@ -18,6 +21,7 @@ class EveryBirdTwitter
 
   def is_last_tweet_older_than_four_hours
     last = @client.user_timeline.first.created_at
+    puts last
     puts "last tweet was #{time_ago_in_words(last)} ago, so should we tweet? #{last <= 4.hours.ago}"
     last <= 4.hours.ago
   end

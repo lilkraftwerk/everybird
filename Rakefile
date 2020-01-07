@@ -2,10 +2,6 @@ $LOAD_PATH << "."
 
 require 'everybird'
 
-task :randombird do
-
-end
-
 task :testrandombird do
 	test_tweet
 end
@@ -16,10 +12,6 @@ end
 
 task :reruntest do
 	rerun_test
-end
-
-task :lastbirds do
-	get_last_birds
 end
 
 task :should_tweet do
