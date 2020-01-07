@@ -58,6 +58,7 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.3.0)
       loofah (~> 2.3)
+    rake (13.0.1)
     simple_oauth (0.3.1)
     thread_safe (0.3.6)
     twitter (6.2.0)
@@ -85,7 +86,11 @@ DEPENDENCIES
   actionview
   activesupport
   httparty
+  rake
   twitter
+
+RUBY VERSION
+   ruby 2.6.3p62
 
 BUNDLED WITH
    1.17.3
