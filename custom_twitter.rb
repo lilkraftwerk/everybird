@@ -1,6 +1,3 @@
-require 'twitter'
-require 'active_support'
-require 'active_support/time'
 
 class EveryBirdTwitter
   attr_reader :last_bird
@@ -46,6 +43,17 @@ class EveryBirdTwitter
     match.gsub!(',','') if match.to_s.length > 3
     p match
     return match.to_i
+  end
+
+  def get_all_last_birds
+    regexp = /BIRD\s#(.+)\s/
+    me = @client.user.id
+    timeline = @client.user_timeline(me)
+    @recent_tweets = @client.user_timeline(me)
+    matches = @recent_tweets.map do |tweet|
+      regexp.match(@most_recent_tweet.text).captures.first.to_i
+    end
+    return matches
   end
 
   def set_last_bird
