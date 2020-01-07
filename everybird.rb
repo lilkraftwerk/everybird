@@ -32,7 +32,7 @@ end
 
 def rerun_test
   tweeter = EveryBirdTwitter.new
-  tweeter.get_text_to_post
+  p tweeter.get_text_to_post
 end
 
 def get_last_birds
