@@ -21,3 +21,7 @@ end
 task :lastbirds do
 	get_last_birds
 end
+
+task :should_tweet do
+	should_tweet?
+end
