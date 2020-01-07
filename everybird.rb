@@ -4,7 +4,6 @@ require 'twitter'
 require 'active_support/all'
 
 require_relative 'custom_twitter'
-require_relative './keys'
 
 TWITTER_KEY ||= ENV["TWITTER_KEY"]
 TWITTER_SECRET ||= ENV["TWITTER_SECRET"]
