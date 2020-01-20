@@ -1,6 +1,7 @@
 require 'twitter'
 require 'net/http'
 require 'twitter'
+require 'date'
 require 'active_support/all'
 
 require_relative 'custom_twitter'
@@ -20,7 +21,7 @@ def last_tweet_older_than_four_hours?
 end
 
 def should_tweet?
-  last_tweet_older_than_four_hours?
+  DateTime.now.minute < 10 && DateTime.now.hour % 4 == 0
 end
 
 def rerun
@@ -34,4 +35,19 @@ end
 def rerun_test
   tweeter = EveryBirdTwitter.new
   puts tweeter.get_text_to_post
+end
+
+def retweet_test
+  tweeter = EveryBirdTwitter.new
+  puts tweeter.retweet_random_tweet
+end
+
+def rerun_retweet
+  if should_tweet?
+    puts "should tweet, finding one to RT"
+    tweeter = EveryBirdTwitter.new
+    text = tweeter.retweet_random_tweet
+  else 
+    puts "should not tweet, doing nothing"
+  end
 end

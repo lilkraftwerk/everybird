@@ -17,3 +17,11 @@ end
 task :should_tweet do
 	should_tweet?
 end
+
+task :retweet_test do
+	retweet_test
+end
+
+task :rerun_retweet do
+	rerun_retweet
+end

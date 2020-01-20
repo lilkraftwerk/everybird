@@ -68,6 +68,30 @@ class EveryBirdTwitter
     "Everybird \##{number}: #{name}, originally posted on #{date} #{link}"
   end
 
+  def retweet_random_tweet
+    ids = []
+    20.times do
+      ids.push(@posted_birds.sample["id"])
+    end
+
+    retweeted = false
+    20.times do |index|
+      if retweeted == false
+        random_tweet = @client.status(ids[index])
+        if random_tweet.retweeted? == false
+          @client.retweet(random_tweet)
+          retweeted = true
+        end
+
+        if retweeted == false && index == 19
+          @client.unretweet(random_tweet)
+          @client.retweet(random_tweet)
+          retweeted = true
+        end
+      end
+    end
+  end
+
   def update(text)
     @client.update(text)
   end
